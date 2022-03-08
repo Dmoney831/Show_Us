@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from .models import Post
 from .forms import PostForm
+
 # Create your views here.
 
 class PostListView(View):
@@ -29,3 +30,13 @@ class PostListView(View):
             'form': form,
         }
         return render(request, 'show/post_list.html', context)
+
+class PostDetailView(View):
+    def get(self, request, pk, *args, **kwargs):
+        post = Post.objects.get(pk=pk)
+
+        context = {
+            'post': post
+        }
+
+        return render(request, 'show/post_detail.html', context)
