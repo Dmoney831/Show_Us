@@ -10,7 +10,7 @@
 
     <div class="row justify-content-center mt-5">
         <div class="card shadow-sm col-md-8 col-sm-12 border-bottom px-5 pt-3">
-            <img src="{{ profile.picture.url }}" class="rounded-circle" width="100" height="100" />
+            <img src="{{ profile.picture.url }}" class="rounded" width="100" height="100" />
             {% if profile.name %}
             <h3 class="py-4">{{ profile.name }}
                 <span>
@@ -64,12 +64,19 @@
     {% for post in posts %}
     <div class="row justify-content-center mt-5">
         <div class="col-md-8 col-sm-12 border-bottom">
-            <p><a style="text-decoration: none" class="text-primary" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.created_on }}</p>
+            <div class="d-flex flex-row">
+                <a href="{% url 'profile' post.author.profile.pk %}">
+                    <img class="rounded post-img" height="40" width="40" src="{{ post.author.profile.picture.url }}"/>
+                </a>
+                <p class="post-text mt-3">
+                    <a style="text-decoration: none" href="{% url 'profile' post.author.profile.pk %}"> @{{ post.author }}</a> {{ post.created_on }}
+                </p>
+            </div>
             <div class="position-relative">
-                <p>{{ post.body }}</p>
+                <p class="px-3">{{ post.body }}</p>
                 <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
             </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row px-3">
                 <form method="POST" action="{% url 'like' post.pk %}">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ request.path }}">

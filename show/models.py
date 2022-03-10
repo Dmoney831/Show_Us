@@ -27,7 +27,7 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=500, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
     location = models.CharField(max_length=100, blank=True, null=True)
-    picture = models.ImageField(upload_to='upload/profile_pictures', default='uploads/profile_pictures/Up_.jpeg', blank = True)
+    picture = models.ImageField(upload_to='upload/profile_pictures', default='uploads/profile_pictures/icons8-documentary-48.png', blank = True)
     
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
     
