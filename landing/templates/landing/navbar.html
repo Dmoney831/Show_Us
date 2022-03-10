@@ -24,19 +24,23 @@
           </li>
         </ul>
     </div> -->
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" value="{{ request.GET.query }}">
-      <button class="btn btn-outline-primary" type="submit">Search</button>
+    <form class="d-flex" method="GET" action="{% url 'profile-search' %}">
+      <div class="input-group">
+        <input class="form-control me-2" type="search" placeholder="UserID" aria-label="Username" name="query" value="{{ request.GET.query }}" name="query">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </div>
     </form>
 
   </div>
   {% if user.is_authenticated %}
-      <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="buton" aria-expanded="false"><i class="fas fa-user"></i></a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{% url 'profile' user.profile.pk %}">Profile</a></li>
-          <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
-        </ul>
+      <div class="mx-0">
+        <div class="nav-item dropdown mx-3">
+          <a class="nav-link dropdown-toggle text-dark mx-3" data-bs-toggle="dropdown" role="buton" aria-expanded="false"><i class="fas fa-user"></i></a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'profile' user.profile.pk %}" >Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
+          </ul>
+        </div>
       </div>
       {% endif %}
 </nav>
