@@ -104,7 +104,7 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     
     def test_func(self):
         post = self.get_object()
-        return self.request.user == post.author
+        return (self.request.user == post.author) 
 
 class ProfileView(View):
     def get(self, request, pk, *args, **kwargs): 
@@ -231,3 +231,14 @@ class UserSearch(View):
             'profile_list': profile_list,
         }
         return render(request, 'show/search.html', context)
+
+class ListFollowers(View):
+    def get(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        followers = profile.followers.all()
+
+        context = {
+            'profile': profile,
+            'followers': followers,
+        }
+        return render(request, 'show/followers_list.html', context)

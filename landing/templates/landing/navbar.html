@@ -1,13 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-gray bg-light">
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-gray ">
   <div class="container-fluid">
-    <a class="navbar-brand" 
-    {% if user.is_authenticated %} 
-    href="{% url 'post-list' %}" 
-    {% else %}
-    href="{% url 'home' %}" 
-    {% endif %}
-    >Show Us!</a>
-    <!-- <img src="../../../logo/6.jpeg" class="logo"> -->
+    <a class="navbar-brand " {% if user.is_authenticated %} href="{% url 'post-list' %}" {% else %}
+      href="{% url 'home' %}" {% endif %}><img src="{% static 'logo/6.jpeg' %}" class="logo"></a>
+
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
       aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,22 +23,25 @@
         </ul>
     </div> -->
     <form class="d-flex" method="GET" action="{% url 'profile-search' %}">
-      <div class="input-group">
-        <input class="form-control me-2" type="search" placeholder="UserID" aria-label="Username" name="query" value="{{ request.GET.query }}" name="query">
+      <div class="input-group mb-5">
+        <input class="form-control me-2" type="search" placeholder="UserID" aria-label="Username" name="query"
+          value="{{ request.GET.query }}" name="query">
         <button class="btn btn-outline-primary" type="submit">Search</button>
+
+        {% if user.is_authenticated %}
+        <div class="mx-0">
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark mx-2" data-bs-toggle="dropdown" role="buton"
+              aria-expanded="false"><i class="fas fa-user"></i></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'profile' request.user.profile.pk %}">Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+        {% endif %}
       </div>
     </form>
 
   </div>
-  {% if user.is_authenticated %}
-      <div class="mx-0">
-        <div class="nav-item dropdown mx-3">
-          <a class="nav-link dropdown-toggle text-dark mx-3" data-bs-toggle="dropdown" role="buton" aria-expanded="false"><i class="fas fa-user"></i></a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'profile' user.profile.pk %}" >Profile</a></li>
-            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
-          </ul>
-        </div>
-      </div>
-      {% endif %}
 </nav>
