@@ -1,5 +1,5 @@
 {% extends 'landing/base.html' %}
-
+{% load static %}
 
 {% block content %}
 <div class="container">
@@ -56,6 +56,7 @@
         </div>
     </div>
     {% for comment in comments %}
+    {% if comment.is_parent %}
     <div class="row justify-content-center mt-3 mb-5 ">
         <div class="col-md-5 col-sm-12 border-bottom">
             <div class="d-flex flex-row">
@@ -70,8 +71,64 @@
                     {% endif %}
             </div>  
             <p class="px-3" style="word-break: break-all;">{{ comment.comment }}</p>
+
+            <div class="d-flex flex-row px-3 pb-1">
+                <form method="POST" action="{% url 'comment-like' post.pk comment.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="btn btn-outline-danger" type="submit"><i class="fa-solid fa-heart"></i><span class="px-1">{{ comment.likes.all.count }}</span>
+                    </button>
+                </form>
+            
+                <form method="POST" action="{% url 'comment-dislike' post.pk comment.pk%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-heart-crack"></i><span class="px-1">{{ comment.dislikes.all.count }}</span></button>
+                </form>
+                <div class="mb-2">
+                    <button class="btn btn-outline-primary"><i class="fa-solid fa-comment-dots" onclick="commentReplyToggle('{{ comment.pk }}')"></i></button>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-3 mb-3 d-none" id="{{ comment.pk }}">
+                
+                <form method="POST" action="{% url 'comment-reply' post.pk comment.pk %}">
+                    {% csrf_token %}
+                    {{ form }}
+                    <div class="d-grid gap-2" style="width: 360px;">
+                        <button class="btn btn-outline-primary mt-3">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+    {% for child_comment in comment.children %}
+    <div class="row justify-content-center mt-3 mb-5 child-comment" style="margin-left: 3rem;">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            
+            <div class="d-flex flex-row">
+                <div class="pt-1"><img src="https://img.icons8.com/external-ayo-icons-royyan-wijaya/27/000000/external-arrow-arrow-line-ayo-icons-royyan-wijaya-55.png"/></div>
+                <a href="{% url 'profile' child_comment.author.profile.pk %}">
+                    <img class="rounded post-img" height="40" width="40" src="{{ child_comment.author.profile.picture.url }}"/>
+                </a>
+                <p class="pb-3 px-2 mt-3">
+                    <a style="text-decoration: none; " class="text-primary" href="{% url 'profile' child_comment.author.profile.pk %}"><strong>@{{ child_comment.author }} </strong>
+                    </a>{{ child_comment.created_on }}
+                </p>
+                    {% if request.user == child_comment.author %}
+                        <a class="px-2 mt-3" href="{% url 'comment-delete' post.pk child_comment.pk %}" style="color: #333;"><i class="fas fa-trash"></i>
+                        </a> 
+                    {% endif %}
+            </div>
+            <p class="px-3">{{ child_comment.comment }}</p>
+          
+        </div>
+
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endfor %}
 </div>
+
+<script type="text/javascript" src="{% static 'script/main.js' %}"></script>
 {% endblock content %}
