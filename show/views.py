@@ -23,7 +23,7 @@ class PostListView(LoginRequiredMixin ,View):
     
     def post(self, request, *args, **kwargs):
         posts = Post.objects.all().order_by('-created_on')
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
 
         if form.is_valid():
             new_post = form.save(commit=False)
@@ -88,7 +88,7 @@ class CommentReplyView(LoginRequiredMixin, View):
 
 class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['body']
+    fields = ['body', 'image']
     template_name = 'show/post_edit.html'
 
     def get_success_url(self):

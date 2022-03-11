@@ -9,9 +9,13 @@ class PostForm(forms.ModelForm):
             'placeholder': 'Say Something...'
         })
     )
+    image = forms.ImageField(
+        label='',
+        required=False)
+
     class Meta:
         model = Post
-        fields = ['body']
+        fields = ['body', 'image']
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
