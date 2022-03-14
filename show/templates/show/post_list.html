@@ -1,39 +1,43 @@
 {% extends 'landing/base.html' %}
+{% load crispy_forms_tags %}
 { load static }
 
 {% block content %}
-<div class="container">
+<div class="container" style="margin-top: 80px;">
     <div class="row justify-content-center mt-3">
         <div class="col-md-5 col-sm-12 border-bottom">
-            <h5>Post your talent!</h5>
+            <h5>Show Us your talent!</h5>
         </div>
     </div>
     <div class="row justify-content-center mt-3 mb-5">
         <div class="col-md-5 col-sm-12 border-bottom">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form }}
+                {{ form | crispy }}
                 <div class="d-grid gap-2" style="width: 360px;">
-                    <button class="btn btn-outline-primary btn-sm mb-2 mt-3">Submit</button>
+                    <button class="btn btn-warning btn-sm mb-2 mt-3">Submit</button>
                 </div>
             </form>
         </div>
     </div>
     {% for post in post_list %}
     <div class="row justify-content-center mt-3 " style="width: 500;">
-        <div class="col-md-5 col-sm-12 border-bottom position-relative" >
+        <div class="col-md-5 col-sm-12 border-bottom position-relative">
             <div class="d-flex flex-row">
                 <a href="{% url 'profile' post.author.profile.pk %}">
-                    <img class="rounded post-img" height="40" width="40" src="{{ post.author.profile.picture.url }}"/>
+                    <img class="rounded post-img" height="40" width="40" src="{{ post.author.profile.picture.url }}" />
                 </a>
                 <p class="post-text mt-3">
-                    <a style="text-decoration: none" href="{% url 'profile' post.author.profile.pk %}"> @{{ post.author }}</a> {{ post.created_on }}
+                    <a style="text-decoration: none" class="text-warning"
+                        href="{% url 'profile' post.author.profile.pk %}"> @{{ post.author }}</a> {{ post.created_on }}
                 </p>
             </div>
             <div class="position-relative">
                 {% if post.image %}
-                    <img style="max-width: 400px; max-height: auto;" src="{{ post.image.url }}" class="post-image"/>
+                <img style="max-width: 400px; max-height: auto; margin-bottom: 20px;" src="{{ post.image.url }}"
+                    class="post-image" />
                 {% endif %}
+                
                 <p class="px-3" style="word-break: break-all;">{{ post.body }}</p>
                 <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
             </div>
@@ -41,14 +45,16 @@
                 <form method="POST" action="{% url 'like' post.pk %}">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ request.path }}">
-                    <button class="btn btn-outline-danger"  type="submit"><i class="fa-solid fa-heart"></i><span class="px-1">{{ post.likes.all.count }}</span>
+                    <button class="btn btn-outline-danger" type="submit"><i class="fa-solid fa-heart"></i><span
+                            class="px-1">{{ post.likes.all.count }}</span>
                     </button>
                 </form>
-            
+
                 <form method="POST" action="{% url 'dislike' post.pk %}">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ request.path }}">
-                    <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-heart-crack"></i><span class="px-1">{{ post.dislikes.all.count }}</span></button>
+                    <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-heart-crack"></i><span
+                            class="px-1">{{ post.dislikes.all.count }}</span></button>
                 </form>
             </div>
         </div>

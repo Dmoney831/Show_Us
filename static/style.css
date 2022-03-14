@@ -1,16 +1,51 @@
 .post-text {
     margin-left: 8px;
 }
-/* .post-img {
-    float: left;
-    margin-right: 1rem;
-} */
-.logo{
-    margin-left: -20px;
-    margin-top: -30px;
-    width: 200px !important;
-    height: 200px !important;
-}
+
 .child-comment {
     margin-top: 100px;
+}
+
+.logo{
+    margin-top: -20px;
+    width: 150px;
+    height: 150px;
+}
+.inbox-icon-container {
+    margin-right: 15px;
+}
+.inbox-icon:hover {
+   transition: 0.5s;
+}
+.empty-text {
+    color: #777;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.sent-message {
+	border-radius: 30px;
+	padding: 3px 25px;
+	width: 25%;
+    height: 35px;
+    background-color: rgb(255, 193, 7);
+    color: white;
+    font-family: bold;
+    font-size: 20px;
+    font-family: monospace;
+    
+}
+
+.received-message {
+	border-radius: 30px;
+	padding: 3px 25px;
+	width: 25%;
+	float: right;
+    height: 35px;
+    background-color: rgb(255, 193, 7);
+    color: white;
+    font-family: bold;
+    font-size: 20px;
+    font-family: monospace;
+    /* rgb(244, 220, 187) */
 }

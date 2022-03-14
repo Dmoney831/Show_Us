@@ -1,3 +1,4 @@
+from cProfile import label
 from django import forms
 from .models import Post, Comment
 
@@ -6,16 +7,19 @@ class PostForm(forms.ModelForm):
         label='',
         widget=forms.Textarea(attrs={
             'rows': '3',
-            'placeholder': 'Say Something...'
+            'placeholder': "Choose File for thumbnail & video"
         })
     )
     image = forms.ImageField(
         label='',
         required=False)
-
+    video = forms.FileField(
+        label='',
+        required=False
+    )
     class Meta:
         model = Post
-        fields = ['body', 'image']
+        fields = ['body', 'image', 'video']
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
@@ -29,3 +33,9 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment']
 
+class ThreadForm(forms.Form):
+    username = forms.CharField(label='', max_length=100)
+
+class MessageForm(forms.Form):
+    message = forms.CharField(label='', max_length=1000)
+    

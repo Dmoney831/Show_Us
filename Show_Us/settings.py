@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 
     'show',
     'landing',
+    
 ]
 
 SITE_ID = 1
@@ -143,7 +144,7 @@ STATICFILES_DIRS = [
 
 STATIC_URL = 'static/'
 MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
-MEDIA_URL='/media/'
+MEDIA_URL='media/'
 
 
 # Default primary key field type
@@ -154,4 +155,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'post-list'
 ACCOUNT_EMAIL_REQUIRED = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID=os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY=os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME =os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_QUERYSTRING_AUTH = False
+
+
 

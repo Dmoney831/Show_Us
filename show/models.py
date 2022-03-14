@@ -1,6 +1,4 @@
-from distutils.command.upload import upload
-from email.policy import default
-from pyexpat import model
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -11,7 +9,7 @@ from django.dispatch import receiver
 class Post(models.Model):
     body = models.TextField()
     image = models.ImageField(upload_to='uploads/post_photos', blank=True, null=True)
-    video = models.FileField(upload_to='uploads/post_videos', blank=True, null=True)
+    video = models.FileField(upload_to='uploads/post_videos', blank=True, null=True, validators = [FileExtensionValidator(allowed_extensions=['mp4', 'mov'])]) 
     created_on = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')
@@ -61,5 +59,16 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-    
+class ThreadModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+
+class MessageModel(models.Model):
+    thread = models.ForeignKey('ThreadModel', related_name='+', on_delete=models.CASCADE, blank=True, null=True)
+    sender_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    receiver_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    body = models.CharField(max_length=1000)
+    image = models.ImageField(upload_to='uploads/message_photo', blank = True, null = True)
+    date = models.DateField(default=timezone.now)
+    is_read = models.BooleanField(default=False)
 
