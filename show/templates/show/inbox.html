@@ -12,12 +12,12 @@
     <div class="row">
         <div class="col-md-12 p-5">
             <form method="GET" action="{% url 'create-thread' %}">
-                <button class="btn btn-light" type="submit">Send a Message</button>
+                <button class="btn btn-outline-warning" type="submit">Send a Message</button>
             </form>
         </div>
     </div>
     {% for thread in threads.all %}
-    <div class="row mb-3">
+    <div class="row mb-3" style="margin-left: 30px; width: 50%;">
         <div class="card col-md-12 p-5 shadow-sm">
             <h5>{{ thread.user }} - {{ thread.receiver }}</h5>
             <a class="stretched-link" href="{% url 'thread' thread.pk %}"></a>

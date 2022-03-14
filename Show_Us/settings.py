@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -164,4 +165,4 @@ AWS_STORAGE_BUCKET_NAME =os.getenv("AWS_STORAGE_BUCKET_NAME")
 AWS_QUERYSTRING_AUTH = False
 
 
-
+django_heroku.settings(locals())
