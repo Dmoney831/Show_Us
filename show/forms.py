@@ -37,5 +37,10 @@ class ThreadForm(forms.Form):
     username = forms.CharField(label='', max_length=100)
 
 class MessageForm(forms.Form):
-    message = forms.CharField(label='', max_length=1000)
+    message = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            "class": "form-control"
+        }),
+        max_length=1000)
     

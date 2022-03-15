@@ -24,32 +24,30 @@
 }
 
 .sent-message {
-	border-radius: 30px;
-	padding: 3px 25px;
-	width: 25%;
-    height: 35px;
-    background-color: rgb(255, 193, 7);
-    color: white;
-    font-family: bold;
+	width: 40%;
+}
+.sent-message-p {
+    background-color: rgb(255, 202, 45);
     font-size: 20px;
     font-family: monospace;
-    
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.receive-message-p{
+    background-color: rgb(255, 202, 45);
+    font-size: 20px;
+    font-family: monospace;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 10px;
 }
 
 .received-message {
-	border-radius: 30px;
-	padding: 3px 25px;
-	width: 25%;
+	width: 40%;
 	float: right;
-    height: 35px;
-    background-color: rgb(255, 193, 7);
-    color: white;
-    font-family: bold;
-    font-size: 20px;
-    font-family: monospace;
-    /* rgb(244, 220, 187) */
 }
 
-/* .one-post{
-    width: 200px !important;
-} */

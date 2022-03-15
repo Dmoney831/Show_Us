@@ -1,5 +1,6 @@
 {% extends 'landing/base.html' %}
 
+
 {% block content %}
 
 <div class="container">
@@ -25,12 +26,12 @@
 	<div class="row">
 		<div class="col-md-12 my-1">
 			{% if message.sender_user == request.user %}
-				<div class="sent-message my-3">
-					<p>{{ message.body }}</p>
+				<div class="sent-message my-3" >
+					<p style="word-break: break-all;" class="sent-message-p">{{ message.body }}</p>
 				</div>
 			{% elif message.receiver_user == request.user %}
 				<div class="received-message my-3">
-					<p>{{ message.body }}</p>
+					<p style="word-break: break-all;" class="receive-message-p">{{ message.body }}</p>
 				</div>
 			{% endif %}
 		</div>
@@ -38,7 +39,7 @@
 	{% endfor %}
 
 	<div class="row">
-		<div class="card col-md-12 p-3 shadow-sm">
+		<div class="card col-md-12 p-3 shadow-sm" style="margin-top: 15px;">
 			<form method="POST" action="{% url 'create-message' thread.pk %}" enctype="multipart/form-data">
 				{% csrf_token %}
 				{{ form }}
