@@ -5,3 +5,8 @@ from django.views import View
 class Home(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'landing/home.html')
+
+class About(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'landing/about.html')
+
