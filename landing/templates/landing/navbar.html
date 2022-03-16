@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg navbar-gray" style="background-color: rgb(244, 220, 187);">
   <div class="container-fluid">
     <a class="navbar-brand " {% if user.is_authenticated %} href="{% url 'post-list' %}" {% else %}
-      href="{% url 'home' %}" {% endif %}><img src="{% static 'logo/6.png' %}" class="logo" style="width: 100px; height: 100px; margin-top: 5px;"></a>
+      href="{% url 'home' %}" {% endif %}><img src="{% static 'logo/Minilogo.png' %}" class="logo" style="width: 70px; height: 70px; margin-top: 5px;"></a>
 
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
       aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@
         </ul>
     </div> -->
     <form class="d-flex" method="GET" action="{% url 'profile-search' %}">
-      <div class="input-group" style="margin-top: -5px;">
+      <div class="input-group" style="margin-top: 5px;">
         <input class="form-control me-2" type="search" placeholder="UserID" aria-label="Username" name="query"
           value="{{ request.GET.query }}" name="query">
         <button class="btn btn-warning" type="submit">Search</button>
